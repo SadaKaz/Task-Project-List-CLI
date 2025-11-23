@@ -11,6 +11,8 @@ parser.add_argument('--list', action='store_true', help='List all tasks')
 parser.add_argument('--search', type=str, help='Search tasks by keyword')
 parser.add_argument('--edit', nargs='+', help='Edit an existing task. Usage: --edit task_index ["new description"] [new_due_date]')
 parser.add_argument('--file', type=str, default='tasks.json', help='Specify the tasks file (default: tasks.json)')
+parser.add_argument('--remove', type=int, help='Remove a task by its index')
+parser.add_argument('--clear', action='store_true', help='Clear all tasks from the file')
 # parse arguments
 args = parser.parse_args()
 

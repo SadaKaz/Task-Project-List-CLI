@@ -22,7 +22,7 @@ def save (filename, tasks):
 # add a new task
 def add_task (filename, task_description, due_date=None):
     tasks = load(filename)
-    timestamp = datetime.now().isoformat()
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     task = {
         "description": task_description,
         "timestamp": timestamp,
@@ -39,7 +39,10 @@ def list_tasks (filename):
         print("No tasks found.")
         return
     for idx, task in enumerate(tasks, start=1):
-        due = task["due_date"] if task["due_date"] else "No due date"
+        if task["due_date"]:
+            due = task["due_date"]
+        else:
+            due = "No due date"
         print(f"{idx}. {task['description']} (Added: {task['timestamp']}, Due: {due})")
 
 # search tasks by keyword
@@ -50,7 +53,10 @@ def search_tasks (filename, keyword):
         print("No matching tasks found.")
         return
     for idx, task in enumerate(found_tasks, start=1):
-        due = task["due_date"] if task["due_date"] else "No due date"
+        if task["due_date"]:
+            due = task["due_date"]
+        else:
+            due = "No due date"
         print(f"{idx}. {task['description']} (Added: {task['timestamp']}, Due: {due})")
 
 # edit an existing task
@@ -65,3 +71,18 @@ def edit_task (filename, task_index, new_description=None, new_due_date=None):
         tasks[task_index - 1]["due_date"] = new_due_date
     save(filename, tasks)
     print("Task updated successfully.")
+
+# remove a task
+def remove_task (filename, task_index):
+    tasks = load(filename)
+    if task_index < 1 or task_index > len(tasks):
+        print("Error: Task index out of range.")
+        return
+    tasks.pop(task_index - 1)
+    save(filename, tasks)
+    print("Task removed successfully.")
+
+# clear all tasks
+def clear_tasks (filename):
+    save(filename, [])
+    print("All tasks cleared.")
