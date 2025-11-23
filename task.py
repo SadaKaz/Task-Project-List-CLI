@@ -1,6 +1,7 @@
 #main function for task management CLI
 
-from modifyTasks import add_task, list_tasks, search_tasks, edit_task
+from modifyTasks import add_task, list_tasks, search_tasks, edit_task, remove_task, clear_tasks
+from datetime import datetime
 import argparse
 
 # parse CLI arguments
@@ -36,5 +37,9 @@ elif args.edit:
         edit_task(args.file, task_index, new_description, new_due_date)
     except ValueError:
         print("Error: Task index must be an integer.")
+elif args.remove:
+    remove_task(args.file, args.remove)
+elif args.clear:
+    clear_tasks(args.file)
 else:
     parser.print_help()
