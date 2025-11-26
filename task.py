@@ -1,18 +1,16 @@
 #main function for task management CLI
-
 from modifyTasks import add_task, list_tasks, search_tasks, edit_task, remove_task, clear_tasks
-from datetime import datetime
 import argparse
 
 # parse CLI arguments
 parser = argparse.ArgumentParser(description="Task Management CLI")
 # add arguments
-parser.add_argument('--add', nargs='+', help='Add a new task with optional due date. Usage: --add "task description" [due_date format YYYY-MM-DD]')
+parser.add_argument('--add', nargs='+', help='Add a new task with optional due date. Usage: --add "task description" [due date YYYY-MM-DD]', metavar=('TASK'))
 parser.add_argument('--list', action='store_true', help='List all tasks')
-parser.add_argument('--search', type=str, help='Search tasks by keyword')
-parser.add_argument('--edit', nargs='+', help='Edit an existing task. Usage: --edit task_index ["new description"] [new_due_date]')
-parser.add_argument('--file', type=str, default='tasks.json', help='Specify the tasks file (default: tasks.json)')
-parser.add_argument('--remove', type=int, help='Remove a task by its index')
+parser.add_argument('--search', type=str, help='Search tasks by keyword', metavar='KEYWORD')
+parser.add_argument('--edit', nargs='+', help='Edit an existing task. Usage: --edit task_index ["new description"] [new_due_date]', metavar=('INDEX'))
+parser.add_argument('--file', type=str, default='tasks.json', help='Specify the tasks file (default: tasks.json)', metavar='FILE')
+parser.add_argument('--remove', type=int, help='Remove a task by its index', metavar='INDEX')
 parser.add_argument('--clear', action='store_true', help='Clear all tasks from the file')
 # parse arguments
 args = parser.parse_args()
